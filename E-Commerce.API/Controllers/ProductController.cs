@@ -46,7 +46,8 @@ namespace E_Commerce.API.Controllers
 
             var products = await productRepo.ListAsync(productSpecification);
             var data = mapper.Map<IEnumerable<GetProductDTO>>(products);
-            return Ok(new Pagination<GetProductDTO>(parameters.PageIndex,parameters.PageSize,totalItems,data));
+
+            return Ok(new Pagination<GetProductDTO>(parameters.Page,parameters.PageSize,totalItems,data));
         }
 
         [HttpGet("{id}")]

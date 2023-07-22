@@ -10,16 +10,20 @@ namespace Ecommerce.Core.Specifications
     public class ProductWithTypesAndBrandsSpecification : BaseSpecification<Product>
     {
         public ProductWithTypesAndBrandsSpecification(ProductSpecificationsParameters parameters)
-            : base(x => (!parameters.BrandId.HasValue || x.ProductBrandId == parameters.BrandId) 
-            && (!parameters.TypeId.HasValue || x.ProductTypeId == parameters.TypeId))
+       : base(x =>
+            (string.IsNullOrEmpty(parameters.Search) || x.Name.ToLower().Contains(parameters.Search)) &&
+            (!parameters.BrandId.HasValue || x.ProductBrandId == parameters.BrandId) &&
+            (!parameters.TypeId.HasValue || x.ProductTypeId == parameters.TypeId)
+            )
 
 
 
         {
             AddIncludes(x => x.ProductType);
             AddIncludes(x => x.ProductBrand);
+
             AddOrderBy(x => x.Id);
-            ApplyPagination(parameters.PageSize * (parameters.PageIndex - 1), parameters.PageSize);
+            ApplyPagination(parameters.PageSize * (parameters.Page - 1), parameters.PageSize);
 
 
             if (!string.IsNullOrEmpty(parameters.Sort))

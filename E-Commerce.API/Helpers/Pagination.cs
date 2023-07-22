@@ -2,15 +2,15 @@
 {
     public class Pagination <T> where T : class
     {
-        public Pagination(int pageIndex, int pageSize, int count, IEnumerable<T> data)
+        public Pagination(int page, int pageSize, int count, IEnumerable<T> data)
         {
-            PageIndex = pageIndex;
+            Page = page;
             PageSize = pageSize;
             Count = count;
             Data = data;
         }
 
-        public int PageIndex { get; set; }
+        public int Page { get; set; }
         public int PageSize { get; set; }
         public int Count { get; set; }
         public IEnumerable<T> Data { get; set; }

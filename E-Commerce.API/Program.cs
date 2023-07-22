@@ -29,6 +29,8 @@ namespace E_Commerce.API
             builder.Services.AddScoped (typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
 
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            builder.Services.AddCors(options=>
+            options.AddPolicy("CorsPolicy", policy=> policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()));
 
             var app = builder.Build();
 
@@ -45,6 +47,8 @@ namespace E_Commerce.API
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseCors("CorsPolicy");
 
             app.UseAuthorization();
 
